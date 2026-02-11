@@ -14,16 +14,16 @@
 import { useEffect, useMemo, useState } from "react";
 
 export default function App() {
-  // API dan keladigan postlar massivini saqlaymiz
+  
   const [state, setState] = useState([]);
 
-  // Select orqali tanlangan style (kategoriya)
+  
   const [style, setStyle] = useState("hayot");
 
-  // Loading holati
+
   const [loader, setLoader] = useState(false);
 
-  // Error holati
+
   const [error, setError] = useState(false);
 
   function handleChange(evt) {
@@ -37,7 +37,7 @@ export default function App() {
     fetch(`https://jsonbek.uz/api/posts?style=${style}`)
       .then((res) => res.json())
       .then((res) => {
-        // API ba'zan array, ba'zan {data: []} yoki {posts: []} qaytarishi mumkin
+        
         const list = Array.isArray(res) ? res : (res.data ?? res.posts ?? []);
         setState(list);
       })
@@ -48,7 +48,7 @@ export default function App() {
       .finally(() => setLoader(false));
   }, [style]);
 
-  // Agar API o‘zi filter qilsa ham, frontendda ham "xavfsiz" filter qilib qo‘yamiz
+  
   const filtered = useMemo(() => {
     return state.filter((p) => (p.category ?? p.style ?? "") === style);
   }, [state, style]);
